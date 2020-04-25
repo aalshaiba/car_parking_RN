@@ -7,7 +7,7 @@ import { AUH } from "../components/icons/SvgIcons";
 import { connect } from "react-redux";
 import { showModal } from "../actions/AbuDhabiActions";
 
-const PlateRow = ({ notSharjah = true, isDark, showModal }) => (
+const PlateRow = ({ notSharjah = true, isDark, showModal, selected }) => (
   <View style={{ marginVertical: 15 }}>
     <Plate notSharjah={notSharjah}>
       <TouchableOpacity onPress={() => showModal(true)}>
@@ -21,6 +21,7 @@ const PlateRow = ({ notSharjah = true, isDark, showModal }) => (
 const current = (state) => {
   return {
     isDark: state.menu.isDark,
+    selected: state.ad.selectedEmirate,
   };
 };
 

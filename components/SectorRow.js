@@ -1,14 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 
 import { TextStyle } from "../utils/Styles";
 import { connect } from "react-redux";
+import { TOGGLE_PICKER } from "../utils/Types";
 const { width, height } = Dimensions.get("window");
 
-const SectorRow = ({ isDark }) => {
+const SectorRow = ({ isDark, togglePicker }) => {
   return (
     <View style={styles.container}>
-      <Text style={TextStyle}>Select Sector</Text>
+      <TouchableOpacity onPress={() => togglePicker(true)}>
+        <Text style={TextStyle}>Select Sector</Text>
+      </TouchableOpacity>
       <Text style={{ color: isDark ? "white" : "black" }}>A11</Text>
     </View>
   );
@@ -20,7 +29,17 @@ const current = (state) => {
   };
 };
 
-export default connect(current)(SectorRow);
+const mapDispatch = (dispatch) => {
+  return {
+    togglePicker: (bool) =>
+      dispatch({
+        type: TOGGLE_PICKER,
+        payload: bool,
+      }),
+  };
+};
+
+export default connect(current, mapDispatch)(SectorRow);
 
 const styles = StyleSheet.create({
   container: {

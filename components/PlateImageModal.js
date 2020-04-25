@@ -16,15 +16,15 @@ import { mawaqifBlue, FABColor } from "../utils/Utilities";
 
 const { width, height } = Dimensions.get("window");
 
-const Modal = ({ isDark, showModal, ad, children }) => {
-  const [bottom, setBottom] = useState(new Animated.Value(300));
+const Modal = ({ isDark, showModal, modalIsOpen, children }) => {
+  const [bottom, setBottom] = useState(new Animated.Value(-300));
 
   useEffect(() => {
     toggle();
-  }, [ad.showModal]);
+  }, [modalIsOpen]);
 
   const toggle = () => {
-    if (ad.showModal) {
+    if (modalIsOpen) {
       Animated.spring(bottom, {
         toValue: 0,
         speed: 20,
@@ -70,7 +70,7 @@ const Modal = ({ isDark, showModal, ad, children }) => {
 
 const current = (state) => {
   return {
-    ad: state.ad,
+    modalIsOpen: state.ad.showModal,
   };
 };
 

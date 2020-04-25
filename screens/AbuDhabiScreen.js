@@ -29,17 +29,17 @@ import Modal from "../components/PlateImageModal";
 import { BlurView } from "expo-blur";
 import StandardPremiumAndroid from "../components/StandardPremiumAndroid";
 import ImageSelection from "../components/icons/ImageSelection";
+import PickerModal from "../components/PickerModal";
 
 const { width, height } = Dimensions.get("window");
 
-const AbuDhabiScreen = ({ isDark, showModal }) => {
+const AbuDhabiScreen = ({ isDark, showModal, pickerIsOpen }) => {
   const [on, setOn] = useState(false);
 
   const getState = (bool) => {
     if (ref) {
       ref.current.animateNextTransition();
     }
-
     setOn(bool);
   };
 
@@ -65,7 +65,7 @@ const AbuDhabiScreen = ({ isDark, showModal }) => {
           style={{ ...StyleSheet.absoluteFill, backgroundColor: "#303030" }}
         />
       )}
-      {showModal && (
+      {(showModal || pickerIsOpen) && (
         <BlurView
           intensity={100}
           tint="dark"
@@ -77,10 +77,10 @@ const AbuDhabiScreen = ({ isDark, showModal }) => {
           }}
         />
       )}
-
       <Modal isDark={isDark}>
         <ImageSelection />
       </Modal>
+      <PickerModal />
       <SafeAreaView />
       <View style={{ height: 70 }} />
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
@@ -137,6 +137,7 @@ const mapStateToProps = (state) => {
     ad: state.ad,
     isDark: state.menu.isDark,
     showModal: state.ad.showModal,
+    pickerIsOpen: state.ad.showPicker,
   };
 };
 
